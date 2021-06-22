@@ -2,8 +2,11 @@ using HotelListing.Configurations;
 using HotelListing.Data;
 using HotelListing.IRepository;
 using HotelListing.Repository;
+using HotelListing.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,9 +39,15 @@ namespace HotelListing
             options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
 
+            services.AddAuthentication();
+
+            services.ConfigureIdentity();
+
             services.AddAutoMapper(typeof(MapperInitializer));
 
             services.AddTransient<IUnitofWork, UnitofWork>();
+
+            services.AddScoped<IAuthManager, AuthManager>();
 
             services.AddControllers().AddNewtonsoftJson(op =>
             op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -62,7 +71,11 @@ namespace HotelListing
 
             app.UseHttpsRedirection();
 
+            app.UseCors("AllowAll");
+
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
