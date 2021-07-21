@@ -28,34 +28,34 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         [HttpGet(Name = "GetAllEvents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<EventListVm>>> GetAllEvents()
+        public async Task<ActionResult> GetAllEvents()
         {
             var dtos = await _mediator.Send(new GetEventsListQuery());
             return Ok(dtos);
         }
 
         [HttpGet("{id}", Name = "GetEventById")]
-        public async Task<ActionResult<EventDetailVm>> GetEventById(Guid id)
+        public async Task<ActionResult> GetEventById(Guid id)
         {
             var getEventDetailQuery = new GetEventDetailQuery() { Id = id };
             return Ok(await _mediator.Send(getEventDetailQuery));
         }
 
         [HttpPost(Name = "AddEvent")]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateEventCommand createEventCommand)
+        public async Task<ActionResult> Create([FromBody] CreateEventCommand createEventCommand)
         {
             var id = await _mediator.Send(createEventCommand);
             return Ok(id);
         }
 
         [HttpPut(Name = "UpdateEvent")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateEventCommand updateEventCommand)
         {
-            await _mediator.Send(updateEventCommand);
-            return NoContent();
+            var response = await _mediator.Send(updateEventCommand);
+            return Ok(response);
         }
 
         [HttpDelete("{id}", Name = "DeleteEvent")]

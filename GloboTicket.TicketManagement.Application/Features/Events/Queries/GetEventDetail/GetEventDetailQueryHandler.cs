@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GloboTicket.TicketManagement.Application.Contracts.Persistence;
 using GloboTicket.TicketManagement.Application.Exceptions;
+using GloboTicket.TicketManagement.Application.Responses;
 using GloboTicket.TicketManagement.Domain.Entities;
 using MediatR;
 using System.Threading;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventDetail
 {
-    public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, EventDetailVm>
+    public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, Response<EventDetailVm>>
     {
         private readonly IAsyncRepository<Event> _eventRepository;
         private readonly IAsyncRepository<Category> _categoryRepository;
@@ -21,11 +22,11 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEv
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<EventDetailVm> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
+        public async Task<Response<EventDetailVm>> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
         {
             var @event = await _eventRepository.GetByIdAsync(request.Id);
             var eventDetailDto = _mapper.Map<EventDetailVm>(@event);
-            
+
             var category = await _categoryRepository.GetByIdAsync(@event.CategoryId);
 
             if (category == null)
@@ -34,7 +35,8 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEv
             }
             eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
 
-            return eventDetailDto;
+            var response = new Response<EventDetailVm>(eventDetailDto);         
+            return response;
         }
     }
 }

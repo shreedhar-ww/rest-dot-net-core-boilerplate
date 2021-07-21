@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using GloboTicket.TicketManagement.Application.Responses;
+using MediatR;
 using System;
 
 namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.CreateEvent
 {
-    public class CreateEventCommand: IRequest<Guid>
+    public class CreateEventCommand: IRequest<Response<Guid>>
     {
         public string Name { get; set; }
         public int Price { get; set; }

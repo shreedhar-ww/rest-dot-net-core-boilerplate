@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using GloboTicket.TicketManagement.Application.Contracts.Persistence;
 using GloboTicket.TicketManagement.Application.Exceptions;
+using GloboTicket.TicketManagement.Application.Responses;
 using GloboTicket.TicketManagement.Domain.Entities;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.UpdateEvent
 {
-    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand>
+    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand,Response<Guid>>
     {
         private readonly IAsyncRepository<Event> _eventRepository;
         private readonly IMapper _mapper;
@@ -19,7 +21,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Upda
             _eventRepository = eventRepository;
         }
 
-        public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
+        public async Task<Response<Guid>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
 
             var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
@@ -37,9 +39,10 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Upda
 
             _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
 
-            await _eventRepository.UpdateAsync(eventToUpdate);
+             await _eventRepository.UpdateAsync(eventToUpdate);
 
-            return Unit.Value;
+            return new Response<Guid>(request.EventId, "Updated successfully ");
+             //return Unit.Value;
         }
     }
 }
