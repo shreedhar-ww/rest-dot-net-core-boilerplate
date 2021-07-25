@@ -2,6 +2,7 @@
 using GloboTicket.TicketManagement.Application.Responses;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace GloboTicket.TicketManagement.Api.Middleware
     public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next)
+        public ExceptionHandlerMiddleware(RequestDelegate next ,ILogger<ExceptionHandlerMiddleware> logger)
         {
-            _next = next;
+            _next = next; _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -27,6 +29,7 @@ namespace GloboTicket.TicketManagement.Api.Middleware
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "", null);
                 await ConvertException(context, ex);
             }
         }
