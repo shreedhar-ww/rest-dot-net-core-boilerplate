@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {

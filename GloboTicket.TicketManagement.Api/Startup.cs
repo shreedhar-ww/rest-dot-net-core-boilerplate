@@ -1,5 +1,7 @@
+using GloboTicket.TicketManagement.Api.Extensions;
 using GloboTicket.TicketManagement.Api.Middleware;
 using GloboTicket.TicketManagement.Api.Services;
+using GloboTicket.TicketManagement.Api.SwaggerHelper;
 using GloboTicket.TicketManagement.Api.Utility;
 using GloboTicket.TicketManagement.Application;
 using GloboTicket.TicketManagement.Application.Contracts;
@@ -8,10 +10,14 @@ using GloboTicket.TicketManagement.Infrastructure;
 using GloboTicket.TicketManagement.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 
 namespace GloboTicket.TicketManagement.Api
@@ -27,12 +33,17 @@ namespace GloboTicket.TicketManagement.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            AddSwagger(services);
+            // AddSwagger(services);
 
             services.AddApplicationServices();
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceServices(Configuration);
             services.AddIdentityServices(Configuration);
+            services.AddSwaggerExtension();
+            services.AddSwaggerVersionedApiExplorer();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddSwaggerGen(options => options.OperationFilter<SwaggerDefaultValues>());
+
 
             services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 
@@ -78,18 +89,18 @@ namespace GloboTicket.TicketManagement.Api
                       }
                     });
 
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "GloboTicket Ticket Management API",
+                //c.SwaggerDoc("v1", new OpenApiInfo
+                //{
+                //    Version = "v1",
+                //    Title = "GloboTicket Ticket Management API",
 
-                });
+                //});
 
                 c.OperationFilter<FileResultContentTypeOperationFilter>();
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -102,9 +113,17 @@ namespace GloboTicket.TicketManagement.Api
             app.UseAuthentication();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),  
+            // specifying the Swagger JSON endpoint.  
+            app.UseSwaggerUI(
+            options =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "GloboTicket Ticket Management API");
+                // build a swagger endpoint for each discovered API version  
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
             });
 
             app.UseCustomExceptionHandler();

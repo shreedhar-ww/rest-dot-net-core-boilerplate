@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace GloboTicket.TicketManagement.Api.Controllers
+namespace GloboTicket.TicketManagement.Api.Controllers.v1
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,9 +20,8 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("/getpagedordersformonth", Name = "GetPagedOrdersForMonth")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
+
+        [HttpGet(Name = "GetOrdersForMonth")]
         public async Task<ActionResult> GetPagedOrdersForMonth(DateTime date, int page, int size)
         {
             var getOrdersForMonthQuery = new GetOrdersForMonthQuery() { Date = date, Page = page, Size = size };

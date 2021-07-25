@@ -12,10 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GloboTicket.TicketManagement.Api.Controllers
+namespace GloboTicket.TicketManagement.Api.Controllers.v1
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion("1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class EventsController : Controller
     {
         private readonly IMediator _mediator;

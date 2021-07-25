@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GloboTicket.TicketManagement.Api.Controllers
+namespace GloboTicket.TicketManagement.Api.Controllers.v2
 {
-    [Route("api/[controller]")]
+
+    [ApiVersion("2")] 
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
