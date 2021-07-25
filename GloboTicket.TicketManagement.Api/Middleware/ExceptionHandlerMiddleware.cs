@@ -1,7 +1,10 @@
 ﻿using GloboTicket.TicketManagement.Application.Exceptions;
+using GloboTicket.TicketManagement.Application.Responses;
+
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -40,28 +43,56 @@ namespace GloboTicket.TicketManagement.Api.Middleware
             {
                 case ValidationException validationException:
                     httpStatusCode = HttpStatusCode.BadRequest;
-                    result = JsonConvert.SerializeObject(validationException.ValdationErrors);
+                    result = GetErrorMessages(validationException.ValdationErrors);
                     break;
                 case BadRequestException badRequestException:
                     httpStatusCode = HttpStatusCode.BadRequest;
-                    result = badRequestException.Message;
+                    result = GetErrorMessage(badRequestException.Message);
                     break;
                 case NotFoundException notFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
+                    result = GetErrorMessage(notFoundException.Message);
+                    break;
+                case ApplicationException appexception:
+                    httpStatusCode = HttpStatusCode.BadRequest;
+                    result = GetErrorMessage(appexception.Message);
                     break;
                 case Exception ex:
                     httpStatusCode = HttpStatusCode.BadRequest;
+                    result = GetErrorMessage("Internal server error occurred contact dev team.");
                     break;
             }
 
             context.Response.StatusCode = (int)httpStatusCode;
 
-            if (result == string.Empty)
-            {
-                result = JsonConvert.SerializeObject(new { error = exception.Message });
-            }
+            //if (result == string.Empty)
+            //{
+            //    result = JsonConvert.SerializeObject(new { error = exception.Message });
+            //}
+
+
 
             return context.Response.WriteAsync(result);
+        }
+
+        private string GetErrorMessage(string message)
+        {
+            var response = new Response<string>();
+            response.Succeeded = false;
+            response.Errors = new List<string>();
+            response.Errors.Add(message);
+            return JsonConvert.SerializeObject(response);
+
+        }
+
+        private string GetErrorMessages(List<string> messages)
+        {
+            var response = new Response<string>();
+            response.Succeeded = false;
+            response.Errors = new List<string>();
+            response.Errors= messages;
+            return JsonConvert.SerializeObject(response);
+
         }
     }
 }

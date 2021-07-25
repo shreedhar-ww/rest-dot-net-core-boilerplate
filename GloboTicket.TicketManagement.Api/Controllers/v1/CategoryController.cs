@@ -32,7 +32,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers.v1
             return Ok(dtos);
         }
 
-       // [Authorize]
+        //[Authorize]
         [HttpGet("allwithevents", Name = "GetCategoriesWithEvents")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -1,5 +1,6 @@
 ﻿using GloboTicket.TicketManagement.Application.Contracts.Identity;
 using GloboTicket.TicketManagement.Application.Models.Authentication;
+using GloboTicket.TicketManagement.Domain.Common;
 using GloboTicket.TicketManagement.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -93,7 +94,7 @@ namespace GloboTicket.TicketManagement.Identity.Services
             }
             else
             {
-                throw new Exception($"Email {request.Email } already exists.");
+                throw new ApplicationException($"Email {request.Email } already exists.");
             }
         }
 
