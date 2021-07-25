@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,10 +18,12 @@ namespace GloboTicket.TicketManagement.Api.Controllers.v1
     public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ILogger _logger;
 
-        public CategoryController(IMediator mediator)
+        public CategoryController(IMediator mediator, ILogger<CategoryController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         //[Authorize]
@@ -28,7 +31,9 @@ namespace GloboTicket.TicketManagement.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAllCategories()
         {
+            _logger.LogInformation("GetAllCategories Initiated");
             var dtos = await _mediator.Send(new GetCategoriesListQuery());
+            _logger.LogInformation("GetAllCategories Completed");
             return Ok(dtos);
         }
 

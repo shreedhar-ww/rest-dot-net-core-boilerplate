@@ -1,6 +1,7 @@
 ﻿using GloboTicket.TicketManagement.Application.Contracts.Persistence;
 using GloboTicket.TicketManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,10 @@ namespace GloboTicket.TicketManagement.Persistence.Repositories
 {
     public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        public OrderRepository(GloboTicketDbContext dbContext) : base(dbContext)
+        private readonly ILogger _logger;
+        public OrderRepository(GloboTicketDbContext dbContext, ILogger<Order> logger) : base(dbContext, logger)
         {
+            _logger = logger;
         }
 
         public async Task<List<Order>> GetPagedOrdersForMonth(DateTime date, int page, int size)
