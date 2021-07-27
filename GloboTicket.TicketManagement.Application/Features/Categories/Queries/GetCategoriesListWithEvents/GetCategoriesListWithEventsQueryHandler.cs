@@ -23,7 +23,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Categories.Queries.G
         {
             var list = await _categoryRepository.GetCategoriesWithEvents(request.IncludeHistory);
             var categoryEventList= _mapper.Map<IEnumerable<CategoryEventListVm>>(list);
-            return new Response<IEnumerable<CategoryEventListVm>>(categoryEventList);
+            return new Response<IEnumerable<CategoryEventListVm>>(categoryEventList, "success");
         }
  
 

@@ -29,7 +29,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Categories.Queries.G
             var allCategories = (await _categoryRepository.ListAllAsync()).OrderBy(x => x.Name);
             var category= _mapper.Map<IEnumerable<CategoryListVm>>(allCategories);
             _logger.LogInformation("Hanlde Completed");
-            return new Response<IEnumerable<CategoryListVm>>(category);       
+            return new Response<IEnumerable<CategoryListVm>>(category, "success");       
         }
 
     }
