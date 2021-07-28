@@ -19,6 +19,8 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 ## Overview
 
+ <img align="left" width="300" height="200" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/overview.png" /> 
+
 ### Domain
 
 This will contain all entities, enums, exceptions, interfaces, types and logic specific to the domain layer.
