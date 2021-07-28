@@ -14,9 +14,6 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * [Docker](https://www.docker.com/)
 * [Seri Logger](https://serilog.net/)
 
-## Getting Started
-
-
 ## Overview
    <img  width="800" height="400" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/overview.png" /> 
 <br/>
