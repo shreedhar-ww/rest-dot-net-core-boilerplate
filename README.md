@@ -5,8 +5,8 @@
 This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. 
 ## Technologies
 
-* ASP.NET Core 5
-* [Entity Framework Core 5](https://docs.microsoft.com/en-us/ef/core/)
+* ASP.NET Core 3.1
+* [Entity Framework Core 3.1](https://docs.microsoft.com/en-us/ef/core/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
