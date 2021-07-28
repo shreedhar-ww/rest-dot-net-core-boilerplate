@@ -2,7 +2,8 @@
  <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/icon.png" /> 
 <br/><br/><br/>
 
-This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. 
+<p align="left> This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture.  </p>
+
 ## Technologies
 
 * ASP.NET Core 3.1
