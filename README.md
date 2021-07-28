@@ -20,8 +20,10 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 ## Overview
 
  <img align="left" width="300" height="200" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/overview.png" /> 
- 
+
 <br/>
+
+ <img align="left" width="300" height="200" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/overview.png" />  
 
 ### Domain
 
