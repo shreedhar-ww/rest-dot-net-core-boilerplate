@@ -12,6 +12,7 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 * [Docker](https://www.docker.com/)
+* [Seri Logger](https://serilog.net/)
 
 ## Getting Started
 
