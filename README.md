@@ -16,7 +16,6 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * JWT Token Authentication
 * Global Error Handler Middleware
 * CQRS ( Command Query Responsibility Segregation)
-* MediatR
 * Generic Repository Pattern
 
 
