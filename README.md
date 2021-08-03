@@ -11,6 +11,15 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 * [Docker](https://www.docker.com/)
 * [Seri Logger](https://serilog.net/)
+* API Versioning
+* Swagger UI.
+* JWT Token Authentication
+* Global Error Handler Middleware
+* CQRS ( Command Query Responsibility Segregation)
+* MediatR
+* Generic Repository Pattern
+
+
 
 ## Overview
    <img  width="800" height="400" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/overview.png" /> 
