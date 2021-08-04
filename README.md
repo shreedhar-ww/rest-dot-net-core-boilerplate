@@ -28,7 +28,7 @@ Run below commands in Package manager console
 
 2 update-database -Context GloboTicketDbContext
 
-<img  width="800" height="400" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/migration.png" /> 
+<img  width="800" height="400" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/overview.png" /> 
 
 
 
