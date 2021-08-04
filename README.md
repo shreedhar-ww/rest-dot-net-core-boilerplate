@@ -18,6 +18,18 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * CQRS ( Command Query Responsibility Segregation)
 * Generic Repository Pattern
 
+## Build & Run
+
+Change Connectionstring in appsettings.json
+
+Add-Migration Initial -Context GloboTicketIdentityDbContext
+
+update-database -Context GloboTicketIdentityDbContext
+
+Add-Migration Initial -Context GloboTicketDbContext
+
+update-database -Context GloboTicketDbContext
+
 
 
 ## Overview
