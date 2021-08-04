@@ -20,15 +20,15 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 ## Build & Run
 
-Change Connectionstring in appsettings.json
+Change Connectionstring in appsettings.json 
 
-Add-Migration Initial -Context GloboTicketIdentityDbContext
+Run below commands in Package manager console
 
-update-database -Context GloboTicketIdentityDbContext
+1 update-database -Context GloboTicketIdentityDbContext
 
-Add-Migration Initial -Context GloboTicketDbContext
+2 update-database -Context GloboTicketDbContext
 
-update-database -Context GloboTicketDbContext
+<img  width="800" height="400" src="https://raw.githubusercontent.com/shreedhar-ww/rest-dot-net-core-boilerplate/main/.github/migration.png" /> 
 
 
 
